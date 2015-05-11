@@ -13,7 +13,6 @@ public class Constants
 	public static String receivedMsg = "encReceiveMsg";
 	public static String startDec = "decStartMsg";
 	public static String endDec = "decEndMsg";
-	
 	/**
 	 * This is for image transfer app
 	 */

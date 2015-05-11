@@ -107,38 +107,36 @@ public class ProcessConnectionThread implements Runnable{
 	    			//System.out.println("Got endB");
 	    			
 	    			
-	    			//calculateTime();
+	    			calculateTime();
 	    		}
 	    		else if (h.equals(Constants.startEnc))
 	    		{
-	    			startEnc = System.nanoTime();
+	    			a1 = System.nanoTime();
 	    			//System.out.println("Got a1");
 	    		}
 	        	if (h.equals(Constants.endEnc))
 	    		{
-	        		endEnc = System.nanoTime();
+	    			a1 = System.nanoTime();
 	    			//System.out.println("Got a1");
 	    		}
 	        	if (h.equals(Constants.sentMsg))
 	    		{
-	        		sentMsg = System.nanoTime();
+	    			a1 = System.nanoTime();
 	    			//System.out.println("Got a1");
 	    		}
 	        	if (h.equals(Constants.receivedMsg))
 	    		{
-	        		receivedMsg = System.nanoTime();
+	    			a1 = System.nanoTime();
 	    			//System.out.println("Got a1");
 	    		}
 	        	if (h.equals(Constants.startDec))
 	    		{
-	        		startDec = System.nanoTime();
+	    			a1 = System.nanoTime();
 	    			//System.out.println("Got a1");
 	    		}
 	        	if (h.equals(Constants.endDec))
 	    		{
-	        		endDec = System.nanoTime();
-	        		
-	        		calculateTime();
+	    			a1 = System.nanoTime();
 	    			//System.out.println("Got a1");
 	    		}
 	    		else if (h.equals(Constants.encryptStart))
@@ -209,7 +207,7 @@ public class ProcessConnectionThread implements Runnable{
 
 	private void calculateTime() throws IOException 
 	{
-		/*time1 = startB - startA;
+		time1 = startB - startA;
 		time2 = endA - b1;
 		time3 = endB - a1;
 		
@@ -222,17 +220,7 @@ public class ProcessConnectionThread implements Runnable{
 		System.out.println("time2:" + time2);
 		System.out.println("time3:" + time3);
 		System.out.println("total time:" + total);
-		System.out.println("_____________________________________");*/
-		
-		long timeToEncrypt = endEnc - startEnc;
-		long timeToSendMsg = receivedMsg - sentMsg;
-		long timeToDecrypt = endDec - startDec;
-		
-		long total = timeToEncrypt + timeToSendMsg + timeToDecrypt;
-		
-		writer = new BufferedWriter(new FileWriter(WaitThread.logFile, true));
-		writer.write(timeToEncrypt + "," + timeToSendMsg + "," + timeToDecrypt + "," + total + "\n");
-		writer.close();
+		System.out.println("_____________________________________");
 		
 		
 		

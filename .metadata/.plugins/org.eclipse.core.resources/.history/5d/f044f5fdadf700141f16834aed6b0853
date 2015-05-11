@@ -25,6 +25,13 @@ public class ProcessConnectionThread implements Runnable{
 	static long time2 = 0;
 	static long time3 = 0;
 	
+	static long startEnc = 0;
+	static long endEnc = 0;
+	static long sentMsg = 0;
+	static long receivedMsg = 0;
+	static long startDec = 0;
+	static long endDec = 0;
+	
 	/*
 	 * This is for image tranfer app
 	 */
@@ -102,6 +109,36 @@ public class ProcessConnectionThread implements Runnable{
 	    			
 	    			calculateTime();
 	    		}
+	    		else if (h.equals(Constants.startEnc))
+	    		{
+	    			startEnc = System.nanoTime();
+	    			//System.out.println("Got a1");
+	    		}
+	        	if (h.equals(Constants.endEnc))
+	    		{
+	        		endEnc = System.nanoTime();
+	    			//System.out.println("Got a1");
+	    		}
+	        	if (h.equals(Constants.sentMsg))
+	    		{
+	        		sentMsg = System.nanoTime();
+	    			//System.out.println("Got a1");
+	    		}
+	        	if (h.equals(Constants.receivedMsg))
+	    		{
+	        		receivedMsg = System.nanoTime();
+	    			//System.out.println("Got a1");
+	    		}
+	        	if (h.equals(Constants.startDec))
+	    		{
+	        		startDec = System.nanoTime();
+	    			//System.out.println("Got a1");
+	    		}
+	        	if (h.equals(Constants.endDec))
+	    		{
+	        		endDec = System.nanoTime();
+	    			//System.out.println("Got a1");
+	    		}
 	    		else if (h.equals(Constants.encryptStart))
 	    		{
 	    			encryptStart = System.nanoTime();
@@ -153,13 +190,19 @@ public class ProcessConnectionThread implements Runnable{
     	}
 	}
 
-	private void calculateTimeForImageTransfer() 
+	private void calculateTimeForImageTransfer() throws IOException 
 	{
-		timeToEncrypt = uploadEnd - uploadStart;
-		timeToUpload = downloadEnd - downloadStart;
+		timeToEncrypt = encryptEnd - encryptStart;
+		timeToUpload = uploadEnd - uploadStart;
 		timeToSendNonce = receiveNonce - sendNoce;
 		timeToDownload = downloadEnd - downloadStart;
 		
+		
+		long total = timeToEncrypt + timeToUpload + timeToSendNonce + timeToDownload;
+		
+		writer = new BufferedWriter(new FileWriter(WaitThread.logFile, true));
+		writer.write(timeToEncrypt + "," + timeToUpload + "," + timeToSendNonce + "," + timeToDownload + "," + total + "\n");
+		writer.close();
 	}
 
 	private void calculateTime() throws IOException 
